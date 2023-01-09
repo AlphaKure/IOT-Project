@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="Dark">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>歷史紀錄</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='./css/main.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="{{ url_for('static',filename='scripts/jquery-dateformat.js')}}"></script>
+    <script src="{{ url_for('static',filename='scripts/history.js') }}"></script>
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="flex justify-center items-center"style="height:90vh;">
+        <div class="flex justify-center items-center" style="height:90vh;">
+            <div class="max-h-10">
+                <div class="text-6xl text-center">你好！ {{ userID }}</div>
+                <br />
+                <div class="text-xl text-center" id="label">以下是你的歷史資料</div>
+                <br />
+                <table class="table table-zebra w-full max-h-0" id="table">
+                    <thead>
+                        <td>時間</td>
+                        <td>體重</td>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

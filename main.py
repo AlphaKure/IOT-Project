@@ -1,33 +1,52 @@
 import flask
+import datetime
+
 
 app=flask.Flask(__name__)
 nowSensor=0
 
-@app.route('/')
-def main():
-    global nowSensor
-    return flask.render_template('index.html',sensor=nowSensor)
+def loginAuth():
+    if flask.request.cookies.get('userID')==None:
+        return False
+    return True
 
-@app.route('/login')
-def login():
-    return flask.render_template('login.html')
+@app.route('/',methods=['GET','POST'])
+def main():
+    if flask.request.method=='GET':
+        if flask.request.cookies.get('userID'):
+            return flask.redirect('/logout')
+        return flask.render_template('index.html')
+    userID=flask.request.form.get('UserID')
+    resp=flask.make_response(flask.redirect('/recent'))
+    resp.set_cookie(key='userID',value=userID,max_age=datetime.timedelta(days=7))
+    return resp
+
+@app.route('/recent')
+def recent():
+    if loginAuth():
+        return flask.render_template('recent.html',userID=flask.request.cookies.get('userID'))
+    else:
+        return flask.redirect('/')
+
+@app.route('/history')
+def history():
+    if loginAuth():
+        return flask.render_template('history.html',userID=flask.request.cookies.get('userID'))
+    return flask.redirect('/')
+
+@app.route('/logout')
+def logout():
+    resp=flask.make_response(flask.redirect('/'))
+    try:
+        resp.delete_cookie('userID')
+    except:
+        pass
+    return resp
 
 @app.errorhandler(404)
 def errorPage(e):
     return flask.render_template('404.html'),404
 
-@app.route('/sensor')
-def sensor():
-    global nowSensor
-    try:
-        data=flask.request.args
-        if data['data']:
-            nowSensor=data['data']
-        return flask.redirect('/')
-    except:
-        return flask.redirect('/')
-
-    
 
 if __name__=='__main__':
     app.run(host='0.0.0.0',port=5000,debug=True)

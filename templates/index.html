@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>index</title>
+    <title>首頁</title>
     <link rel="stylesheet" href="{{url_for('static',filename='./css/main.css')}}">
   </head>
   <body>
     {% include "header.html" %}
     <div class="flex justify-center items-center" style="height: 90vh;">
-      <div>
-        <div class="radial-progress text-6xl" style="--value:{{ sensor }}; --size:10rem;">{{ sensor }}</div>
-      </div>
+        <div class="card glass w-90 text-center items-center">
+          <div class="card-body">
+            <div class="text-4xl">歡迎！ Welcome!</div>
+            <form method="POST">
+              <input type="text" name="UserID" placeholder="userID" class="input input-bordered w-full" style="margin-top:10px;" />
+              <input type="submit" class="btn w-auto text-center" style="margin-top:10px;" value="送出 LOGIN"></button>
+            </form>
+          </div>
+        </div>
+    </div>
   </body>
 </html>
