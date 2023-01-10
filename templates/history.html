@@ -12,21 +12,22 @@
 </head>
 <body>
     {% include "header.html" %}
-    <div class="flex justify-center items-center"style="height:90vh;">
-        <div class="flex justify-center items-center" style="height:90vh;">
-            <div class="max-h-10">
+    <div class="flex justify-center items-center "style="height:90vh;">
+            <div style="max-height:80vh;">
                 <div class="text-6xl text-center">你好！ {{ userID }}</div>
                 <br />
                 <div class="text-xl text-center" id="label">以下是你的歷史資料</div>
                 <br />
-                <table class="table table-zebra w-full max-h-0" id="table">
-                    <thead>
-                        <td>時間</td>
-                        <td>體重</td>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
+                <div class="overflow-y-auto" style="max-height:40vh;">
+                    <table class="table table-zebra table-fixed text-center w-full" id="table">
+                        <thead class="sticky top-0">
+                            <td>時間</td>
+                            <td>體重</td>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
